@@ -10,8 +10,30 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    payments = PaymentSerializer(many=True)
+    payments = PaymentSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "email", "phone_number", "avatar", "city", "payments"]
+        fields = [
+            "id",
+            "email",
+            "phone_number",
+            "avatar",
+            "city",
+            "payments",
+            "password",
+        ]
+
+
+class PublicUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "email",
+            "phone_number",
+            "avatar",
+            "city",
+        ]
+        read_only_fields = fields
