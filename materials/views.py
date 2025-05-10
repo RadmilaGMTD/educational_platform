@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -7,6 +10,7 @@ from .models import Course, Lesson, Subscription
 from .paginators import MaterialsPaginator
 from .permissions import IsModerator, IsNotModerator, IsOwner
 from .serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
+from .tasks import send_update_materials
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -26,6 +30,16 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        now = timezone.now()
+        subscription = Subscription.objects.filter(course=instance)
+        if subscription:
+            if instance.last_update < (now - timedelta(hours=4)):
+                course_name = instance.name
+                for sub in subscription:
+                    send_update_materials.delay(course_name, sub.user.email)
 
 
 class LessonCreateApiView(generics.CreateAPIView):
