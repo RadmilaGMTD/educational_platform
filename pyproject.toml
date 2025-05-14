@@ -8,6 +8,20 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.2"
+pillow = "^11.2.1"
+djangorestframework = "^3.16.0"
+python-dotenv = "^1.1.0"
+psycopg2-binary = "^2.9.10"
+django-filter = "^25.1"
+djangorestframework-simplejwt = "^5.5.0"
+coverage = "^7.8.0"
+drf-yasg = "^1.21.10"
+requests = "^2.32.3"
+stripe = "^12.1.0"
+celery = "^5.5.2"
+redis = "^6.0.0"
+django-celery-beat = "^2.8.0"
+eventlet = "^0.39.1"
 
 
 [tool.poetry.group.lint.dependencies]
