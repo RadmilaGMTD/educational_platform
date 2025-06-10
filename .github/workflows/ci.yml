@@ -79,9 +79,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Copy files to server
+      - name: Copy files
         run: |
-          scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:~/
 
       - name: Deploy to server
         run: |
