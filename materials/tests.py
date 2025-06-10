@@ -39,9 +39,7 @@ class MaterialsTestCase(APITestCase):
 
     def test_list_course(self):
         response = self.client.get("/courses/")
-        data = response.json()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
 
     def test_retrieve_lesson(self):
         response = self.client.get(f"/courses/lessons/{self.lesson.pk}/")

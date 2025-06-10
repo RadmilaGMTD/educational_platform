@@ -80,13 +80,11 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
       - name: Deploy to server
-        uses: appleboy/ssh-action@v1
-        with:
-            host: ${{ secrets.SERVER_IP }}
-            username: ${{ secrets.SSH_USER }}
-            key: ${{ secrets.SSH_KEY }}
-            script: |
-              docker compose pull
-              docker compose down
-              docker compose up -d --remove-orphans
-              docker compose exec -T web python manage.py migrate
+        run: |
+          ssh -o StrictHostKeyChecking=no \
+              -i ${{ secrets.SSH_KEY }} \
+              ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "
+            cd /path/to/project
+            docker compose pull
+            docker compose up -d
+          "
