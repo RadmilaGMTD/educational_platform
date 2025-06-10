@@ -80,11 +80,11 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
       - name: Deploy to server
+
         run: |
-          ssh -o StrictHostKeyChecking=no \
-              -i ${{ secrets.SSH_KEY }} \
-              ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "
-            cd /path/to/project
-            docker compose pull
-            docker compose up -d
-          "
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            docker compose pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+            docker compose stop myapp || true
+            docker compose rm myapp || true
+            docker compose up -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+          EOF
