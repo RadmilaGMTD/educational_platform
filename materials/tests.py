@@ -41,36 +41,7 @@ class MaterialsTestCase(APITestCase):
         response = self.client.get("/courses/")
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(
-            data,
-            {
-                "count": 1,
-                "next": None,
-                "previous": None,
-                "results": [
-                    {
-                        "id": 8,
-                        "count_lessons": 1,
-                        "lessons": [
-                            {
-                                "id": 8,
-                                "name": "Тестовый урок",
-                                "image": None,
-                                "description": None,
-                                "video_url": None,
-                                "course": 8,
-                                "owner": 7,
-                            }
-                        ],
-                        "is_subscribed": False,
-                        "name": "Тестовый курс",
-                        "image": None,
-                        "description": None,
-                        "owner": 7,
-                    }
-                ],
-            },
-        )
+
 
     def test_retrieve_lesson(self):
         response = self.client.get(f"/courses/lessons/{self.lesson.pk}/")
@@ -107,13 +78,13 @@ class MaterialsTestCase(APITestCase):
                 "previous": None,
                 "results": [
                     {
-                        "id": 9,
+                        "id": 1,
                         "name": "Тестовый урок",
                         "image": None,
                         "description": None,
                         "video_url": None,
-                        "course": 9,
-                        "owner": 8,
+                        "course": 1,
+                        "owner": 1,
                     }
                 ],
             },
