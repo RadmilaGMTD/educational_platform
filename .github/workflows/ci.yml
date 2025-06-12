@@ -85,8 +85,8 @@ jobs:
 
       - name: Copy project files
         run: |
-          scp -o StrictHostKeyChecking=no \
-            -r . \
+          rsync -avz --exclude='.git/' -e "ssh -o StrictHostKeyChecking=no" \
+            . \
             ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_PATH }}
 
       - name: Create .env file on server
