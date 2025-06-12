@@ -39,6 +39,7 @@ docker-compose exec web python manage.py migrate
 
 2. API endpoints
 Получение списка курсов:
+
 * Регистрация.(`users/create/`)
 * Авторизация.(`users/token/`)
 * Список курсов.(`courses/`)
