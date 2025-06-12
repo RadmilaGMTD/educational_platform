@@ -1,7 +1,7 @@
 # Используем официальный образ Nginx
 FROM nginx:latest
 
-RUN mkdir -p /app/staticfiles
+RUN mkdir -p /staticfiles && chown -R nginx:nginx /staticfiles
 # Копируем файл конфигурации Nginx в контейнер
 COPY nginx.conf /etc/nginx/nginx.conf
 
