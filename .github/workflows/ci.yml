@@ -83,10 +83,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      - name: Copy compose file
+      - name: Copy project files
         run: |
           scp -o StrictHostKeyChecking=no \
-            ./docker-compose.yml \
+            -r . \
             ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:${{ secrets.DEPLOY_PATH }}
 
       - name: Create .env file on server
