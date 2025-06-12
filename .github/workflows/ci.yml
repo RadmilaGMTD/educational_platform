@@ -114,7 +114,8 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "
-            cd ${{ secrets.DEPLOY_PATH }} && \
-            docker compose pull && \
-            docker compose up -d --no-deps homework_drf
-          "
+          cd ${{ secrets.DEPLOY_PATH }} && \
+          docker compose down && \
+          docker compose pull && \
+          docker compose up -d --build
+         "
