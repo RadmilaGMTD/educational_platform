@@ -1,13 +1,12 @@
 services:
-  web:
+  homework_drf:
     build: .
-    command:
-      bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:8000 --workers 4 config.wsgi:application"
     env_file:
       - .env
     volumes:
       - .:/code
-      - static_volume:/code/static
+      - static_volume:/app/staticfiles
     ports:
       - "8000:8000"
     depends_on:
@@ -65,6 +64,15 @@ services:
       redis:
         condition: service_started
 
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/staticfiles
+    depends_on:
+      - homework_drf
 
 networks:
   default:
