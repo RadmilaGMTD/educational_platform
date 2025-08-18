@@ -1,5 +1,34 @@
-# homework_drf
-homework_drf — Проект представляет собой RESTful API для образовательной платформы с курсами, уроками, подписками и платежами.
+# educational_platform
+Образовательная платформа — RESTful API (DRF + PostgreSQL + Celery)
+Проект представляет собой RESTful API для образовательной платформы, реализованный на Django REST Framework. Основные функции:
+
+* Управление курсами и уроками (CRUD)
+
+* Система подписок на курсы
+
+* Уведомления об обновлениях через Celery
+
+* Валидация YouTube-ссылок
+
+* JWT-аутентификация
+
+* Документирование API (Swagger/Redoc)
+
+* Пагинация и права доступа
+
+## Технологический стек
+
+Бэкенд - Django REST Framework
+
+База данных - PostgreSQL
+
+Асинхронные - задачи Celery + Redis
+
+Деплой - Docker + Docker Compose
+
+CI/CD - GitHub Actions
+
+Документация - Swagger/Redoc
 
 ## Запуск проекта через Docker Compose
 
